@@ -48,7 +48,23 @@ if (canvas) {
     }
 }
 
+async function loadLevel(_name) {
+
+    var docRef = db.collection("Levels").doc(_name);
+
+    docRef.get().then(function (doc) {
+        if (doc.exists) {
+
+            this.myLevel = (doc.data());
+            Start();
+        }
+    }).catch(function (error) {
+        console.log("Error getting document:", error);
+    });
+}
+
 function Start() {
+
 
     //Inicializamos el player
     this.player = new Player(
@@ -79,6 +95,8 @@ function Start() {
         Enemigos.push(enemy)
     }
 
+    Loop();
+
 }
 
 function Loop() {
@@ -104,12 +122,19 @@ function Loop() {
 
     if (this.player.life <= 0) {
         jugando = false;
-        if (input.isKeyPressed(KEY_SCAPE)) {
+        finDelJuego = true;
+        if (input.isKeyPressed(KEY_P)) {
             saveData();
             restartGame();
         }
-    }
+    } else
 
+        if (input.isKeyPressed(KEY_SCAPE)) {
+            jugando = false;
+        } else
+            if (input.isKeyPressed(KEY_0)) {
+                jugando = true;
+            }
     if (jugando) {
         totalTimeOfPlay += deltaTime / 1000;
 
@@ -125,7 +150,8 @@ function restartGame() {
     this.Enemigos = new Array();
     this.totalTimeOfPlay = 0;
     this.Start();
-    jugando = true;
+    this.jugando = true;
+    this.finDelJuego = true;
 }
 
 function saveData() {
@@ -138,10 +164,15 @@ function Update(deltaTime) {
 
     //Enemigos
     Enemigos.forEach(m => m.Update(deltaTime));
+    this.spawnEnemies(deltaTime);
+
     //Player
     this.player.Update(deltaTime);
 
-    this.spawnEnemies(deltaTime);
+    //PowerUps
+    this.powerUps.forEach(m => m.Update(deltaTime));
+    this.spawnPowerUps(deltaTime);
+
 
     //Check collision with bullets and enemies
     for (let i = 0; i < bulletsActive.length; i++) {
@@ -164,11 +195,70 @@ function Update(deltaTime) {
 
 }
 
+function spawnPowerUps(deltaTime) {
+
+    powerUpTimeSpawner += deltaTime;
+    let timeOfSpawn = logInv(totalTimeOfPlay) + this.myLevel.spanwOfPwUps;
+
+    if (powerUpTimeSpawner > timeOfSpawn) {
+        let typeOfEnemy = Math.floor(Math.random() * 3);
+
+        initialPosition = new vec2(
+            Math.random() * (canvas.width),
+            Math.random() * (canvas.height)
+        );
+
+
+        switch (typeOfEnemy) {
+            case 1:
+                aux = new PowerUp(
+                    1,
+                    this.myLevel.lifePwUp.time,
+                    initialPosition,
+                    this.player,
+                    this.myLevel.lifePwUp.value
+                );
+                aux.Start();
+                powerUps.push(aux);
+                break;
+            case 2:
+                aux = new PowerUp(
+                    2,
+                    this.myLevel.shootPwUp.time,
+                    initialPosition,
+                    this.player,
+                    this.myLevel.shootPwUp.value
+                );
+                aux.Start();
+                powerUps.push(aux);
+                break;
+
+            default:
+                aux = new PowerUp(
+                    3,
+                    this.myLevel.speedPwUp.time,
+                    initialPosition,
+                    this.player,
+                    this.myLevel.speedPwUp.value
+                );
+                aux.Start();
+                powerUps.push(aux);
+                break;
+        }
+
+        powerUpTimeSpawner = 0;
+
+    }
+
+
+
+}
+
 function spawnEnemies(deltaTime) {
 
     timer += deltaTime;
 
-    let timeOfSpawn = log(totalTimeOfPlay) + this.myLevel.enemigosSpawnTime;
+    let timeOfSpawn = logInv(totalTimeOfPlay) + this.myLevel.enemigosSpawnTime;
 
     //Cada x segundos spawneamos un enemigo
     if (timer > timeOfSpawn) {
@@ -227,6 +317,8 @@ function Draw() {
     this.player.bullets.forEach(m => { if (m.active) m.Draw(ctx); });
     this.player.Draw(ctx);
 
+    //PowerUps
+    this.powerUps.forEach(m => m.Draw(ctx));
 
     // FPS
     ctx.fillStyle = "white";
@@ -234,5 +326,7 @@ function Draw() {
     ctx.fillText('FPS: ' + FPS, 10, 14);
     ctx.fillText('Total Enemigos: ' + Enemigos.length, 10, 56);
     ctx.fillText('Total points: ' + this.player.score, 10, 76);
+    ctx.fillText('Life: ' + this.player.life, 10, 96);
+    ctx.fillText('PowerUp: ' + this.player.powerup == null ? this.player.powerup.type : 'nada', 10, 116);
 }
 

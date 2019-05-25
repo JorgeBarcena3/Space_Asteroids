@@ -2,7 +2,7 @@ var player = null;
 
 class Player {
 
-    constructor(_img, initialPosition, initialRotation, _velocity, _life, _frecuenciaDeDisparo ) {
+    constructor(_img, initialPosition, initialRotation, _velocity, _life, _frecuenciaDeDisparo) {
         this.img = _img;
         this.position = new vec2(initialPosition.x, initialPosition.y);
         this.rotation = 0;
@@ -17,6 +17,10 @@ class Player {
         this.score = 0;
         this.frecuenciaDeDisparo = _frecuenciaDeDisparo;
         this.timer = this.frecuenciaDeDisparo;
+        //PowerUps
+        this.powerup = null;
+        this.powerupApplied = false;
+        this.timerPowerUp = 0;
     }
 
     Start = function () {
@@ -27,6 +31,9 @@ class Player {
     }
 
     Update = function (deltaTime) {
+
+        if (this.powerup != null)
+            this.applyPowerUp(deltaTime);
 
         // Movimiento
         var movement = new vec2(0, 0);
@@ -69,8 +76,8 @@ class Player {
                 bulletsActive.push(bulletsInactive[0]);
                 bulletsInactive.shift();
 
-             } 
-             else {
+            }
+            else {
                 let aux = new Bullet(
                     bulletIMG,
                     positionForSpawn,
@@ -130,5 +137,44 @@ class Player {
         ctx.fill();
 
         ctx.restore();
+    }
+
+    applyPowerUp(deltaTime) {
+
+        if (!this.powerupApplied) {
+            
+            switch (this.powerup.type) {
+                    case 1: //Vida
+                        this.life += this.powerup.amount;
+                    break;
+                case 2: //Disparo mas rapido
+                    this.frecuenciaDeDisparo = this.powerup.amount;
+                    break;
+                default: //Mas velocidad
+                    this.velocity += this.powerup.amount;
+                    break;
+            }
+
+            this.powerupApplied = true;
+
+        } else if (this.timerPowerUp < this.powerup.time) {
+            this.timerPowerUp += deltaTime;
+        } else {
+            
+            switch (this.powerup.type) {
+                case 1: //Vida
+
+                    break;
+                case 2: //Disparo mas rapido
+                    this.frecuenciaDeDisparo = myLevel.frecuenciaDeDisparo;
+                    break;
+                default: //Mas velocidad
+                    this.velocity -= this.powerup.amount;
+                    break;
+            }
+            this.timerPowerUp = 0;
+            this.powerup = null;
+            this.powerupApplied = false;
+        }
     }
 }

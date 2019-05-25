@@ -5,7 +5,7 @@ const KEY_LEFT  = 37, KEY_A = 65;
 const KEY_UP    = 38, KEY_W = 87;
 const KEY_RIGHT = 39, KEY_D = 68;
 const KEY_DOWN  = 40, KEY_S = 83;
-const KEY_PAUSE = 19;
+const KEY_PAUSE = 19; KEY_P = 80;
 const KEY_SPACE = 32;
 const KEY_SCAPE = 27;
 const KEY_LSHIFT = 16;
@@ -63,9 +63,9 @@ var input = {
 function SetupKeyboardEvents ()
 {
     AddEvent(document, "keydown", function (e) {
-        console.log(e.keyCode);
         input.keyboard[e.keyCode] = true;
         input.keyboard.keypressed[e.keyCode] = true;
+        
     } );
 
     AddEvent(document, "keyup", function (e) {
@@ -100,7 +100,6 @@ function MouseDown (event)
 
     input.mouse.pressed = true;
 
-    console.log("MouseDown: " + "X=" + clickX + ", Y=" + clickY);
 }
 
 function MouseUp (event)
@@ -111,7 +110,6 @@ function MouseUp (event)
 
     input.mouse.pressed = false;
 
-    console.log("MouseUp: " + "X=" + clickX + ", Y=" + clickY);
 }
 
 function MouseMove (event)
@@ -119,5 +117,4 @@ function MouseMove (event)
     var rect = canvas.getBoundingClientRect();
     input.mouse.x = event.clientX - rect.left;
     input.mouse.y = event.clientY - rect.top;
-    //console.log(input.mouse);
 }

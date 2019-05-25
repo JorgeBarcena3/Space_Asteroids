@@ -37,19 +37,14 @@ function saveScore(_player) {
             console.error("Error adding document: ", error);
         });
 
-    // // Create a reference to the cities collection
-    // var citiesRef = db.collection("score");
 
-    // // Create a query against the collection.
-    // var query = citiesRef.orderBy("score", "desc").limit(3);
-
-    // query.get().then((querySnapshot) => {
-    //     let scores = new Array();
-
-    //     querySnapshot.forEach((doc) => {
-    //         scores.push(doc.data());
-    //     });
-
-    //     console.log(scores);
-    // });
 }
+
+function saveLevel(_level, _name) {
+    debugger;
+    db.collection("Levels").doc(_name).set(Object.assign({}, _level)).then(function () {
+        console.log("Document successfully written!");
+    });
+
+}
+

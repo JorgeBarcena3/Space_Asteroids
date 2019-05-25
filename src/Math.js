@@ -31,8 +31,11 @@ class vec2 {
 
 }
 
-function log(x) {
+function logInv(x) {
     return 1 / Math.log(x + 1);
+}
+function log(x) {
+    return Math.log(x + 1);
 }
 
 function pointOutsideRect(x1, x2, y1, y2, _error) {
