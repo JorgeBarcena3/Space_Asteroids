@@ -49,10 +49,10 @@ class Bullet {
         ctx.rotate(this.rotation + PI2);
         ctx.drawImage(this.img, -this.img.width, -this.img.height);
 
-        ctx.beginPath();
-        ctx.fillStyle = 'rgba(255, 255, 0, 0.2)';
-        ctx.arc(0, -15, this.radius, 0, 2 * Math.PI);
-        ctx.fill();
+        // ctx.beginPath();
+        // ctx.fillStyle = 'rgba(255, 255, 0, 0.2)';
+        // ctx.arc(0, -15, this.radius, 0, 2 * Math.PI);
+        // ctx.fill();
 
         ctx.restore();
 

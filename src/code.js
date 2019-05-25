@@ -1,6 +1,7 @@
 const PI2 = Math.PI * 2;
 const PIH = Math.PI * 0.5;
 
+
 //Estado del juego
 var jugando = true;
 var finDelJuego = false;
@@ -34,6 +35,7 @@ window.requestAnimationFrame = (function (evt) {
 //Obtenemos el canvas
 canvas = document.getElementById("my_canvas");
 
+
 if (canvas) {
     ctx = canvas.getContext("2d");
     if (ctx) {
@@ -59,11 +61,12 @@ async function loadLevel(_name) {
             Start();
         }
     }).catch(function (error) {
-        console.log("Error getting document:", error);
+        Start();
     });
 }
 
 function Start() {
+
 
 
     //Inicializamos el player
@@ -147,7 +150,13 @@ function restartGame() {
 
     //Reiniciar el juego
     this.player = null;
+    this.EnemyActive = new Array();
+    this.EnemyInactive = new Array();
     this.Enemigos = new Array();
+    this.powerUps = this.powerUpInactive = this.powerUpActive = new Array();
+    this.bulletsActive = new Array();
+    this.bulletsInactive = new Array();
+    this.bullets = new Array();
     this.totalTimeOfPlay = 0;
     this.Start();
     this.jugando = true;

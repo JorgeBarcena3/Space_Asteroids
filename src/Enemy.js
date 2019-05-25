@@ -106,9 +106,9 @@ class Enemy {
             ctx.drawImage(this.img, -this.imgHalfWidth, -this.imgHalfHeight);
             ctx.restore();
 
-            ctx.beginPath();
-            ctx.fillStyle = 'rgba(0, 255, 0, 0.2)';
-            ctx.arc(0, 0, this.radius, 0, 2 * Math.PI);
+            // ctx.beginPath();
+            // ctx.fillStyle = 'rgba(0, 255, 0, 0.2)';
+            // ctx.arc(0, 0, this.radius, 0, 2 * Math.PI);
             ctx.fill();
 
             ctx.restore();

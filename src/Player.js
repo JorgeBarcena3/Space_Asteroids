@@ -88,6 +88,11 @@ class Player {
                 this.bullets.push(aux);
             }
             this.timer = 0;
+
+            shoot.currentTime = 0;
+            shoot.play();
+          //  shoot.play();
+
         }
         this.bullets.forEach(m => { if (m.active) m.Update(deltaTime); });
 
@@ -121,19 +126,19 @@ class Player {
         ctx.rotate(this.rotation);
         //ctx.scale(2, 2);
 
-        ctx.fillStyle = 'rgba(255, 0, 0, 0.3)';
-        ctx.strokeStyle = 'red';
-        // ctx.fillRect(-this.imgHalfWidth, -this.imgHalfHeight, this.img.width, this.img.height);
-        ctx.strokeRect(-this.imgHalfWidth / 2, -this.imgHalfHeight / 2, this.img.width / 2, this.img.height / 2);
+        // ctx.fillStyle = 'rgba(255, 0, 0, 0.3)';
+        // ctx.strokeStyle = 'red';
+        // // ctx.fillRect(-this.imgHalfWidth, -this.imgHalfHeight, this.img.width, this.img.height);
+        // ctx.strokeRect(-this.imgHalfWidth / 2, -this.imgHalfHeight / 2, this.img.width / 2, this.img.height / 2);
 
         ctx.save();
         ctx.scale(0.5, 0.5);
         ctx.drawImage(this.img, -this.imgHalfWidth, -this.imgHalfHeight);
         ctx.restore();
 
-        ctx.beginPath();
-        ctx.fillStyle = 'rgba(0, 255, 0, 0.2)';
-        ctx.arc(0, 0, this.radius, 0, 2 * Math.PI);
+        // ctx.beginPath();
+        // ctx.fillStyle = 'rgba(0, 255, 0, 0.2)';
+        // ctx.arc(0, 0, this.radius, 0, 2 * Math.PI);
         ctx.fill();
 
         ctx.restore();
@@ -142,16 +147,22 @@ class Player {
     applyPowerUp(deltaTime) {
 
         if (!this.powerupApplied) {
-            
+
             switch (this.powerup.type) {
-                    case 1: //Vida
-                        this.life += this.powerup.amount;
+                case 1: //Vida
+                    this.life += this.powerup.amount;
+                    LifePwup.currentTime = 0;
+                    LifePwup.play();
                     break;
                 case 2: //Disparo mas rapido
                     this.frecuenciaDeDisparo = this.powerup.amount;
+                    ShootPwup.currentTime = 0;
+                    ShootPwup.play();
                     break;
                 default: //Mas velocidad
                     this.velocity += this.powerup.amount;
+                    SpeedPwup.currentTime = 0;
+                    SpeedPwup.play();
                     break;
             }
 
@@ -160,7 +171,7 @@ class Player {
         } else if (this.timerPowerUp < this.powerup.time) {
             this.timerPowerUp += deltaTime;
         } else {
-            
+
             switch (this.powerup.type) {
                 case 1: //Vida
 
