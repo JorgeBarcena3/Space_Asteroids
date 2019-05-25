@@ -1,5 +1,3 @@
-
-
 function cargarImagenes() {
 
     //Imagen de los enemigos
@@ -14,6 +12,12 @@ function cargarImagenes() {
     //Imagen del Enemigo
     PlayerIMG = new Image();
     PlayerIMG.src = "./assets/ship.png";
+
+    //Imagenes del powerUp
+    PowerUp_0 = new Image();
+    PowerUp_0.src = "./assets/pwup_1.png";
+    PowerUp_1 = new Image();
+    PowerUp_1.src = "./assets/pwup_2.png";
 
 
     //Imagen de la bala

@@ -3,6 +3,7 @@ const PIH = Math.PI * 0.5;
 
 //Estado del juego
 var jugando = true;
+var finDelJuego = false;
 
 //Canvas y contexto
 var canvas;
@@ -17,22 +18,7 @@ var targetDTSeconds = (1 / 60);
 var time = 0,
     FPS = 0,
     frames = 0,
-    acumDelta = 0,
-    actualCollisions = 0;
-
-//Si el juego esta parado
-var gamePaused = false;
-
-//Jugador
-var player = null;
-var bullets = new Array();
-
-//Enemigos
-var Enemigos;
-
-//Spawning Enemies
-var timer = 0;
-var totalTimeOfPlay = 0;
+    acumDelta = 0;
 
 
 window.requestAnimationFrame = (function (evt) {
@@ -51,9 +37,12 @@ canvas = document.getElementById("my_canvas");
 if (canvas) {
     ctx = canvas.getContext("2d");
     if (ctx) {
+
+        //Mouse and key boar events
         SetupKeyboardEvents();
         SetupMouseEvents();
 
+        //Carga de imagenes
         cargarImagenes();
 
     }
@@ -64,25 +53,28 @@ function Start() {
     //Inicializamos el player
     this.player = new Player(
         PlayerIMG,
-        { x: Math.random() * canvas.width, y: Math.random() * canvas.height },
-        Math.random() * Math.PI,  // initialRotation
-        100, // velocity
-        0.5 * Math.random(), // rotVelocity
+        { x: canvas.width / 2, y: canvas.height / 2 },
+        0,  // initialRotation
+        this.myLevel.velocidadPlayer, // velocity
+        this.myLevel.maxLife, //Maxima vida
+        this.myLevel.frecuenciaDeDisparo //Frecuencia de disparo
     );
 
+
     //Inicializamos los enemigos
-    Enemigos = new Array();
-    for (var i = 0; i < 5; i++) {
+    for (var i = 0; i < this.myLevel.enemigosIniciales; i++) {
+
+        let positionOfSpawn = pointOutsideRect(0, canvas.width, 0, canvas.height, 100);
 
         let enemy = new Enemy(
-
-            { x: Math.random() * canvas.width, y: Math.random() * canvas.height },
+            positionOfSpawn, //Initial position
             Math.random() * Math.PI,  // initialRotation
-            100 + (Math.random() * 20), // velocity
+            this.myLevel.enemigosVelocidadBase, // velocity
             0.5 * Math.random(), // rotVelocity
-            this.player
+            this.player, //Referencial al player
+            this.myLevel.enemigosDamageBase //Daño del enemigo
         );
-        console.log("--Creando enemigos--");
+
         enemy.Start();
         Enemigos.push(enemy)
     }
@@ -113,12 +105,8 @@ function Loop() {
     if (this.player.life <= 0) {
         jugando = false;
         if (input.isKeyPressed(KEY_SCAPE)) {
-            //Reiniciar el juego
-            this.player = null;
-            this.Enemigos = new Array();
-            this.totalTimeOfPlay = 0;
-            this.Start();
-            jugando = true;
+            saveData();
+            restartGame();
         }
     }
 
@@ -130,9 +118,22 @@ function Loop() {
     }
 }
 
+function restartGame() {
+
+    //Reiniciar el juego
+    this.player = null;
+    this.Enemigos = new Array();
+    this.totalTimeOfPlay = 0;
+    this.Start();
+    jugando = true;
+}
+
+function saveData() {
+    let pfb = new PlayerFirebase("Ana", this.player.score);
+    saveScore(pfb);
+}
+
 function Update(deltaTime) {
-
-
 
 
     //Enemigos
@@ -167,9 +168,9 @@ function spawnEnemies(deltaTime) {
 
     timer += deltaTime;
 
-    let timeOfSpawn = log(totalTimeOfPlay) + 0.2;
-    // console.log(timeOfSpawn);
-    //Cada 5 segundos spawneamos un enemigo
+    let timeOfSpawn = log(totalTimeOfPlay) + this.myLevel.enemigosSpawnTime;
+
+    //Cada x segundos spawneamos un enemigo
     if (timer > timeOfSpawn) {
 
         let positionOfSpawn = pointOutsideRect(0, canvas.width, 0, canvas.height, 100);
@@ -180,7 +181,7 @@ function spawnEnemies(deltaTime) {
 
             EnemyInactive[0].position = positionOfSpawn;
             EnemyInactive[0].rotation = Math.random() * Math.PI;
-            EnemyInactive[0].velocity = 100 + (Math.random() * 20);
+            EnemyInactive[0].velocity += this.myLevel.respawnSpeedAument;
             EnemyInactive[0].rotVelocity = 0.5 * Math.random();
             EnemyInactive[0].activo = true;
             EnemyActive.push(EnemyInactive[0]);
@@ -189,12 +190,12 @@ function spawnEnemies(deltaTime) {
         } else {
 
             let enemy = new Enemy(
-
-                positionOfSpawn,
+                positionOfSpawn, //Initial position
                 Math.random() * Math.PI,  // initialRotation
-                100 + (Math.random() * 20), // velocity
+                this.myLevel.enemigosVelocidadBase, // velocity
                 0.5 * Math.random(), // rotVelocity
-                this.player
+                this.player, //Referencial al player
+                this.myLevel.enemigosDamageBase //Daño del enemigo
             );
 
             enemy.Start();
@@ -216,7 +217,6 @@ function Draw() {
     for (var i = 0; i < this.player.bullets.length; i++) {
 
         ctx.fillRect(10 + (10 * i), 60, 10, 10);
-
         ctx.strokeRect(10 + (10 * i), 60, 10, 10);
     }
 
@@ -236,17 +236,3 @@ function Draw() {
     ctx.fillText('Total points: ' + this.player.score, 10, 76);
 }
 
-// rotate the point given (pointCoord) the angle towards the origCoord
-function rotate(origCoord, pointCoord, angle) {
-    var x = pointCoord.x,
-        y = pointCoord.y,
-        cx = origCoord.x,
-        cy = origCoord.y;
-    var rad = angle;//(Math.PI / 180) * angle;
-    var cos = Math.cos(rad);
-    var sin = Math.sin(rad);
-    return {
-        x: (cos * (x - cx)) + (sin * (y - cy)) + cx,
-        y: (cos * (y - cy)) - (sin * (x - cx)) + cy
-    };
-}

@@ -1,26 +1,39 @@
 var EnemyActive = new Array();
 var EnemyInactive = new Array();
+var Enemigos = new Array();
+
+//Spawning Enemies
+var timer = 0;
+var totalTimeOfPlay = 0;
 
 class Enemy {
 
-    constructor(initialPosition, initialRotation, _velocity, _rotVelocity, _player) {
+    constructor(initialPosition, initialRotation, _velocity, _rotVelocity, _player, _damage) {
 
         //Get a random image
         let randomImg = Math.floor(Math.random() * (4));
         switch (randomImg) {
             case 0:
+                this.type = 1;
+                this.damage = _damage * 0.5;
                 this.img = EnemyIMG_0;
                 this.velocity = _velocity * 1.5;
                 break;
             case 1:
+                this.type = 2;
+                this.damage = _damage;
                 this.img = EnemyIMG_1;
                 this.velocity = _velocity;
                 break;
             case 2:
+                this.type = 3;
+                this.damage = _damage * 1.5;
                 this.img = EnemyIMG_2;
                 this.velocity = _velocity / 2;
                 break;
             default:
+                this.type = 1;
+                this.damage = _damage * 0.5;
                 this.img = EnemyIMG_0;
                 this.velocity = _velocity * 1.5;
                 break;
@@ -36,8 +49,7 @@ class Enemy {
         this.radius2 = 0;
         this.player = _player;
         this.activo = true;
-        this.powerups = new Array();
-        
+
     }
 
     Start = function () {
@@ -75,7 +87,7 @@ class Enemy {
                 )
             ) {
                 this.removeEnemy();
-                this.player.life -= 10
+                this.player.life -= myLevel.enemigosDamageBase
             }
 
         }

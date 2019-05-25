@@ -1,6 +1,6 @@
 var bulletsActive = new Array();
 var bulletsInactive = new Array();
-
+var bullets = new Array();
 
 class Bullet {
 

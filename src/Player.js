@@ -1,20 +1,21 @@
+var player = null;
+
 class Player {
 
-    constructor(_img, initialPosition, initialRotation, _velocity, _rotVelocity) {
+    constructor(_img, initialPosition, initialRotation, _velocity, _life, _frecuenciaDeDisparo ) {
         this.img = _img;
         this.position = new vec2(initialPosition.x, initialPosition.y);
         this.rotation = 0;
         this.initialRotation = initialRotation;
         this.velocity = _velocity;
-        this.rotVelocity = _rotVelocity;
         this.imgHalfWidth = _img.width / 2;
         this.imgHalfHeight = _img.height / 2;
         this.radius = 0;
         this.radius2 = 0;
         this.bullets = new Array();
-        this.life = 100;
+        this.life = _life;
         this.score = 0;
-        this.frecuenciaDeDisparo = 0.3;
+        this.frecuenciaDeDisparo = _frecuenciaDeDisparo;
         this.timer = this.frecuenciaDeDisparo;
     }
 
@@ -74,7 +75,7 @@ class Player {
                     bulletIMG,
                     positionForSpawn,
                     directionForShoot,
-                    1000
+                    myLevel.bulletSpeed
                 );
                 aux.Start();
                 this.bullets.push(aux);
