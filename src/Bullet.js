@@ -10,6 +10,7 @@ class Bullet {
         this.velocity = _velocity;
         this.direction = _direction;
         this.active = true;
+        this.radius = 5;
         bulletsActive.push(this);
     }
 
@@ -47,6 +48,11 @@ class Bullet {
         ctx.translate(this.position.x, this.position.y);
         ctx.rotate(this.rotation + PI2);
         ctx.drawImage(this.img, -this.img.width, -this.img.height);
+
+        ctx.beginPath();
+        ctx.fillStyle = 'rgba(255, 255, 0, 0.2)';
+        ctx.arc(0, -15, this.radius, 0, 2 * Math.PI);
+        ctx.fill();
 
         ctx.restore();
 

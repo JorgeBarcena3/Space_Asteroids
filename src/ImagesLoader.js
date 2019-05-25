@@ -3,8 +3,12 @@
 function cargarImagenes() {
 
     //Imagen de los enemigos
-    EnemyIMG = new Image();
-    EnemyIMG.src = "./assets/Enemy_1_Neon.png";
+    EnemyIMG_0 = new Image();
+    EnemyIMG_0.src = "./assets/Enemy_1_Neon.png";
+    EnemyIMG_1 = new Image();
+    EnemyIMG_1.src = "./assets/Enemy_2_Neon.png";
+    EnemyIMG_2 = new Image();
+    EnemyIMG_2.src = "./assets/Enemy_3_Neon.png";
 
 
     //Imagen del Enemigo

@@ -12,7 +12,9 @@ class Player {
         this.radius = 0;
         this.radius2 = 0;
         this.bullets = new Array();
-        this.frecuenciaDeDisparo = 0.1;
+        this.life = 100;
+        this.score = 0;
+        this.frecuenciaDeDisparo = 0.3;
         this.timer = this.frecuenciaDeDisparo;
     }
 

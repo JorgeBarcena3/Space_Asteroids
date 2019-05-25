@@ -3,24 +3,46 @@ var EnemyInactive = new Array();
 
 class Enemy {
 
-    constructor(_img, initialPosition, initialRotation, _velocity, _rotVelocity, _player) {
-        this.img = _img;
+    constructor(initialPosition, initialRotation, _velocity, _rotVelocity, _player) {
+
+        //Get a random image
+        let randomImg = Math.floor(Math.random() * (4));
+        switch (randomImg) {
+            case 0:
+                this.img = EnemyIMG_0;
+                this.velocity = _velocity * 1.5;
+                break;
+            case 1:
+                this.img = EnemyIMG_1;
+                this.velocity = _velocity;
+                break;
+            case 2:
+                this.img = EnemyIMG_2;
+                this.velocity = _velocity / 2;
+                break;
+            default:
+                this.img = EnemyIMG_0;
+                this.velocity = _velocity * 1.5;
+                break;
+        }
+
         this.position = new vec2(initialPosition.x, initialPosition.y);
         this.rotation = 0;
         this.initialRotation = initialRotation;
-        this.velocity = _velocity;
         this.rotVelocity = _rotVelocity;
-        this.imgHalfWidth = _img.width / 2;
-        this.imgHalfHeight = _img.height / 2;
+        this.imgHalfWidth = this.img.width / 2;
+        this.imgHalfHeight = this.img.height / 2;
         this.radius = 0;
         this.radius2 = 0;
         this.player = _player;
         this.activo = true;
+        this.powerups = new Array();
+        
     }
 
     Start = function () {
         this.rotation = this.initialRotation;
-        this.radius = 1;//Math.sqrt((this.imgHalfWidth * this.imgHalfWidth) / 2 + (this.imgHalfHeight * this.imgHalfHeight) / 2);
+        this.radius = 20;//Math.sqrt((this.imgHalfWidth * this.imgHalfWidth) / 2 + (this.imgHalfHeight * this.imgHalfHeight) / 2);
         this.radius2 = this.radius * this.radius;
         EnemyActive.push(this);
 
@@ -53,6 +75,7 @@ class Enemy {
                 )
             ) {
                 this.removeEnemy();
+                this.player.life -= 10
             }
 
         }
@@ -71,12 +94,17 @@ class Enemy {
             ctx.drawImage(this.img, -this.imgHalfWidth, -this.imgHalfHeight);
             ctx.restore();
 
+            ctx.beginPath();
+            ctx.fillStyle = 'rgba(0, 255, 0, 0.2)';
+            ctx.arc(0, 0, this.radius, 0, 2 * Math.PI);
+            ctx.fill();
+
             ctx.restore();
         }
     }
 
     removeEnemy = function () {
-        
+
         this.activo = false;
         var indexActive = EnemyActive.indexOf(this);
         EnemyActive.splice(indexActive, 1);

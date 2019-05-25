@@ -47,5 +47,19 @@ function DistancePointToSegment (A, B, p)
 
 function CheckCircleCollision(x1,y1,r1,x2,y2,r2)
 {
-    return (x2-x1)*(x2-x1) + (y1-y2)*(y1-y2) <= (r1+r2)*(r1+r2);
+
+    var a;
+    var x;
+    var y;
+  
+    a = r1 + r2;
+    x = x1 - x2;
+    y = y1 - y2;
+  
+    if (a > Math.sqrt((x * x) + (y * y))) {
+      return true;
+    } else {
+      return false;
+    }
+
 }
