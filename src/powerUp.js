@@ -14,7 +14,7 @@ class PowerUp {
                 this.time = _time;
                 break;
             case 2: //Disparo mas rapido
-                this.img = PowerUp_0;
+                this.img = PowerUp_2;
                 this.type = _type;
                 this.time = _time;
                 break;
@@ -66,7 +66,7 @@ class PowerUp {
             ctx.rotate(this.rotation);
 
             ctx.save();
-            ctx.scale(0.5, 0.5);
+            ctx.scale(1,1);
             ctx.drawImage(this.img, -this.img.width / 2, -this.img.height / 2);
             ctx.restore();
 

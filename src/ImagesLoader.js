@@ -19,23 +19,27 @@ function cargarImagenes() {
                         PowerUp_1 = new Image()
                         PowerUp_1.src = "./assets/pwup_2.png";
                         PowerUp_1.onload = function () {
-                            bulletIMG = new Image();
-                            bulletIMG.src = "./assets/Player_Bullet.png";
-                            bulletIMG.onload = function () {
-                                loadLevel("Default");
+                            PowerUp_2 = new Image()
+                            PowerUp_2.src = "./assets/pwup_3.png";
+                            PowerUp_2.onload = function () {
+                                bulletIMG = new Image();
+                                bulletIMG.src = "./assets/Player_Bullet.png";
+                                bulletIMG.onload = function () {
+                                    loadLevel("Default");
 
+                                }
                             }
                         }
                     }
-                }
 
+                }
             }
         }
+
+
+
+        //Imagen de la bala
+
+
     }
-
-
-
-    //Imagen de la bala
-
-
 }

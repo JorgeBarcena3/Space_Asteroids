@@ -2,6 +2,8 @@ const PI2 = Math.PI * 2;
 const PIH = Math.PI * 0.5;
 
 
+
+
 //Estado del juego
 var jugando = true;
 var finDelJuego = false;
@@ -67,8 +69,6 @@ async function loadLevel(_name) {
 
 function Start() {
 
-
-
     //Inicializamos el player
     this.player = new Player(
         PlayerIMG,
@@ -97,7 +97,7 @@ function Start() {
         enemy.Start();
         Enemigos.push(enemy)
     }
-
+ //   CanvasGamepad.setup();
     Loop();
 
 }
