@@ -1,4 +1,10 @@
 
+@font-face {
+    font-family: 'Rubik Mono One';
+    src: 
+         url('./assets/RubikMonoOne-Regular.ttf')  format('truetype'), /* Safari, Android, iOS */
+  }
+
 #container {
     width: 1280px;
     height: 720px;
@@ -11,26 +17,162 @@
     border-style: solid;
     border-width: 1px;
     display: block;
-    /* margin: 0 auto; */
+   top:0;
     background-image: url("./assets/fondo.png");
 
 }
 
 
 
-/* CSS DE JAIME */
+/* CSS DE Jorge */
 
-.death-message{
-    position: absolute;
-    left: 50%;
-    margin-left: -125px;
-    top: 50%;
-    color: white;
-    margin-top: -9px;
-    border: 1px solid white;
-    border-radius: 6px;
+body{
+    font-family: 'Rubik Mono One', sans-serif;
 }
 
-.death-message__content{
-    padding: 5px;
+.menu{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: url("./assets/fondo.png");
+    top: 0;
+
+}
+
+.Comunidad{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top:0;
+}
+
+.menu-principal{ 
+    position: absolute;
+    right: 10%;
+    bottom: 10%;
+    z-index: 1;
+}
+
+.boton{
+    font-size: 50px;
+    transition: 2s;
+    color: white;
+}
+
+.boton:hover{
+    cursor: pointer;
+}
+
+.boton-secundario:hover{
+  
+    font-size: 75px;
+}
+
+.boton-terciario:hover {
+
+    font-size: 4vw;
+}
+
+.boton-principal:hover{
+    font-size: 100px
+}
+
+.boton-principal{
+    font-size: 70px;
+}
+.boton-secundario{
+    font-size: 50px;
+}
+.boton-terciario{
+    font-size: 40px;
+}
+
+.menu-image{
+    position: absolute;
+    right: 30%;
+    bottom: 13%;
+    z-index: 0;
+}
+
+.menu-image img{
+    width: 22%;
+    transform: rotate(60deg);
+    animation: rot 3s infinite linear;
+}
+
+/* Rotations */
+@keyframes rot {
+	from {
+        transform:
+         rotate(0deg)
+                   translate(-150px)
+		          
+	}
+	to {
+		transform: rotate(360deg)
+                   translate(-150px) 
+		          
+	}
+}
+
+/* COMUNIDAD */
+
+.Comunidad-topBar{
+    background: rgba(0,0,0,0.4);
+    height: 75px;
+    display: -webkit-box;
+}
+
+.Comunidad-TopBar-atras{
+    text-align: center;
+    margin: 15px;
+    padding: 12px;
+    background: #727171e0;
+    color: white;
+    border-radius: 12px;
+    width: 80px;
+}
+
+.Comunidad-TopBar-atras{
+ cursor: pointer;
+}
+
+.Comunidad-TopBar-title{
+    margin-top: 20px;
+    text-align: center;
+    margin-left: 24px;
+    font-size: 30px;
+    color: white;
+}
+
+.Comunidad-levels{
+    margin-top: 20px;
+    background: rgba(0,0,0,0.4);
+    height: 625px;
+    padding-top: 50px;
+    padding-left: 130px;
+    padding-right: 130px;
+}
+
+.table{
+    background: rgba(255,255,255,0.9);
+    text-align: center;
+    border-radius: 15px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+tbody > tr:hover{
+    background:rgba(0,0,0,0.4);
+    cursor: pointer;
+}
+
+.table thead th{
+    border: none;
+    border-radius: 15px;
+}
+
+.table-contaienr{
+    overflow: auto;
+    height: 500px;
 }

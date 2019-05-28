@@ -25,7 +25,7 @@ class PlayerFirebase {
 
 function saveScore(_player) {
 
-    
+
     // Add a second document with a generated ID.
     db.collection("score").add({
         username: _player.name,
@@ -48,4 +48,6 @@ function saveLevel(_level, _name) {
     });
 
 }
+
+
 

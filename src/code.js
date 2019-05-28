@@ -1,9 +1,6 @@
 const PI2 = Math.PI * 2;
 const PIH = Math.PI * 0.5;
 
-
-
-
 //Estado del juego
 var jugando = true;
 var finDelJuego = false;
@@ -37,20 +34,32 @@ window.requestAnimationFrame = (function (evt) {
 //Obtenemos el canvas
 canvas = document.getElementById("my_canvas");
 
+function mostrarMenu() {
+    $(".menu").show();
 
-if (canvas) {
-    ctx = canvas.getContext("2d");
-    if (ctx) {
-
-        //Mouse and key boar events
-        SetupKeyboardEvents();
-        SetupMouseEvents();
-
-        //Carga de imagenes
-        cargarImagenes();
-
-    }
 }
+
+function startGame(gamemode) {
+
+    if (gamemode != null)
+        this.myLevel = gamemode;
+
+    if (canvas) {
+        ctx = canvas.getContext("2d");
+        if (ctx) {
+
+            //Mouse and key boar events
+            SetupKeyboardEvents();
+            SetupMouseEvents();
+
+            //Carga de imagenes
+            cargarImagenes();
+
+        }
+    }
+
+}
+
 
 async function loadLevel(_name) {
 
@@ -97,7 +106,7 @@ function Start() {
         enemy.Start();
         Enemigos.push(enemy)
     }
- //   CanvasGamepad.setup();
+    //   CanvasGamepad.setup();
     Loop();
 
 }
@@ -126,10 +135,11 @@ function Loop() {
     if (this.player.life <= 0) {
         jugando = false;
         finDelJuego = true;
-        if (input.isKeyPressed(KEY_P)) {
-            saveData();
-            restartGame();
-        }
+        mostrarMenu();
+        // if (input.isKeyPressed(KEY_P)) {
+        //     saveData();           
+        //     restartGame();
+        // }
     } else
 
         if (input.isKeyPressed(KEY_SCAPE)) {
@@ -146,9 +156,11 @@ function Loop() {
     }
 }
 
-function restartGame() {
+function restartGame(gamemode) {
 
     //Reiniciar el juego
+    if (gamemode != null)
+        this.myLevel = gamemode;
     this.player = null;
     this.EnemyActive = new Array();
     this.EnemyInactive = new Array();

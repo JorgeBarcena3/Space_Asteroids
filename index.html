@@ -8,6 +8,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
     <script src="./src/lib/JQuery.js"></script>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
 </head>
 
 <body>
@@ -21,9 +25,38 @@
 
     <div id="container">
         <canvas id="my_canvas" width="1280" height="720"></canvas>
-        <div class="death-message">
-            <div class="death-message__content">
-                Soy Jorge soy bueno
+        <div class="menu">
+            <div class="menu-principal">
+                <div class="boton boton-principal" id="Jugar">Jugar</div>
+                <div class="boton boton-secundario" id="Comunidad">Comunidad</div>
+                <div class="boton boton-secundario">Opciones</div>
+                <div class="boton boton-terciario">Créditos</div>
+            </div>
+            <div class="menu-image">
+                <img src="./assets/Heliotropos.png" alt="Imagen_de_fondo">
+            </div>
+        </div>
+        <div class="Comunidad" >
+            <div class="Comunidad-topBar">
+                <div class="Comunidad-TopBar-atras" id="Volver">Menu</div>
+                <div class="Comunidad-TopBar-title">Niveles de la comunidad</div>
+            </div>
+            <div class="Comunidad-levels">
+                <div class="table-contaienr">
+                    <table class="table " id="tabla-puntuaciones">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Autor</th>
+                                <th scope="col">Puntuación</th>
+                                <th scope="col">F. Creación</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody_container">
+                           
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -40,6 +73,7 @@
     <script src="./src/Player.js"></script>
     <script src="./src/ImagesLoader.js"></script>
     <script src="./src/code.js"></script>
+    <script src="./src/MenuController.js"></script>
 </body>
 
 </html>
