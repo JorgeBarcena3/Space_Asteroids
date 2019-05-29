@@ -132,7 +132,7 @@ function Loop() {
         acumDelta -= 1000;
     }
 
-    if (this.player.life <= 0) {
+    if (this.player.life <= 0 && jugando != false) {
         jugando = false;
         finDelJuego = true;
         mostrarMenu();
@@ -144,6 +144,8 @@ function Loop() {
 
         if (input.isKeyPressed(KEY_SCAPE)) {
             jugando = false;
+            $("#Menu-pause").show();
+
         } else
             if (input.isKeyPressed(KEY_0)) {
                 jugando = true;

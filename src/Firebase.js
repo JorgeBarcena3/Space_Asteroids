@@ -42,12 +42,14 @@ function saveScore(_player) {
 }
 
 function saveLevel(_level, _name) {
-    debugger;
-    db.collection("Levels").doc(_name).set(Object.assign({}, _level)).then(function () {
+
+    db.collection("Levels").add(Object.assign({}, _level)).then(function () {
         console.log("Document successfully written!");
     });
 
 }
+
+
 
 
 

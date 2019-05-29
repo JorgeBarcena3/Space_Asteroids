@@ -25,7 +25,7 @@
 
     <div id="container">
         <canvas id="my_canvas" width="1280" height="720"></canvas>
-        <div class="menu">
+        <div class="menu" id="Menu">
             <div class="menu-principal">
                 <div class="boton boton-principal" id="Jugar">Jugar</div>
                 <div class="boton boton-secundario" id="Comunidad">Comunidad</div>
@@ -36,7 +36,7 @@
                 <img src="./assets/Heliotropos.png" alt="Imagen_de_fondo">
             </div>
         </div>
-        <div class="Comunidad" >
+        <div class="Comunidad">
             <div class="Comunidad-topBar">
                 <div class="Comunidad-TopBar-atras" id="Volver">Menu</div>
                 <div class="Comunidad-TopBar-title">Niveles de la comunidad</div>
@@ -53,9 +53,153 @@
                             </tr>
                         </thead>
                         <tbody id="tbody_container">
-                           
+
                         </tbody>
                     </table>
+                </div>
+            </div>
+        </div>
+        <!-- MENU PAUSA -->
+        <div class="Menu-pausa" id="Menu-pause">
+            <div class="menu-container">
+                <div class="Menu-container-modal">
+                    <div class="menu-pausa-titulo">NIVEL DIFICIL</div>
+                    <div class="menu-pausa-autor">JORGE BARCENA</div>
+                    <button class="btn btn-success menu-pausa-continue" id="continue_btn">CONTINUAR</button>
+                    <button class="btn btn-primary menu-pausa-nivel" id="level_btn">MODIFICAR NIVEL</button>
+                    <button class="btn btn-primary menu-pausa-opciones" id="Options_btn" disabled>OPCIONES</button>
+                    <button class="btn btn-primary menu-pausa-restart" id="Restart_btn">RESTART</button>
+                    <button class="btn btn-danger menu-pausa-salir" id="Salir_btn">SALIR</button>
+                </div>
+            </div>
+        </div>
+        <!-- MENU SCORE -->
+        <div class="Menu-score" id="Menu-pause">
+            <div class="menu-container">
+                <div class="Menu-container-modal">
+                    <div class="menu-score-titulo">TU PUNTUACIÓN</div>
+                    <div class="menu-score-autor">1225</div>
+                    <input type="text" id="Nombre" placeholder="Introduce tu nombre">
+                    <button class="btn btn-primary menu-score-opciones" id="score_Options_btn">ENVIAR</button>
+                    <button class="btn btn-primary menu-score-restart" id="score_Restart_btn">RESTART</button>
+                    <button class="btn btn-danger menu-score-salir" id="score_Salir_btn">SALIR</button>
+                </div>
+            </div>
+        </div>
+        <!-- MENU NIVEL -->
+        <div class="Menu-pausa" id="Menu-nivel">
+            <div class="menu-nivel-container">
+                <div class="Menu-container-nivel">
+                    <button class="btn btn-primary menu-nivel-volver" id="Volver_menu">Volver</button>
+                    <div class="menu-nivel-titulo">OPCIONES DEL NIVEL DIFICIL</div>
+                    <section id="PublishStats">
+                        <div class="row publish-container">
+                            <div class="col-12">
+                                <div>NOMBRE DEL NIVEL</div>
+                                <input type="text" class="publish-lbl" id="LevelName">
+                            </div>
+                            <div class="col-12">
+                                <div>NOMBRE DEL AUTOR</div>
+                                <input type="text" class="publish-lbl" id="AutorName">
+                            </div>
+                            <button class="btn btn-primary publish-button" id="PublicarNivel_step02">PUBLICAR
+                                NIVEL</button>
+
+                        </div>
+
+                    </section>
+                    <section id="levelStats">
+                        <div class="row propiedadesNivel">
+                            <div class="col-12 titulo-propiedad">JUGADOR</div>
+                            <div class="col-4 propiedad">
+                                <span>Vida máxima</span>
+                                <input type="text" id="VidaMaxima">
+                            </div>
+                            <div class="col-4 propiedad">
+                                <span>Velocidad bala</span>
+                                <input type="text" id="VelocidadBala">
+                            </div>
+                            <div class="col-4 propiedad">
+                                <span>Frecuencia disparo</span>
+                                <input type="text" id="FrecuenciaDeDisparo">
+                            </div>
+                            <div class="col-12 titulo-propiedad">ENEMIGOS</div>
+                            <div class="col-4 propiedad">
+                                <span>Daño base</span>
+                                <input type="text" id="DañoBase">
+                            </div>
+                            <div class="col-4 propiedad">
+                                <span>Enemigos iniciales</span>
+                                <input type="text" id="EnemigosIniciales">
+                            </div>
+                            <div class="col-4 propiedad">
+                                <span>Spawn time</span>
+                                <input type="text" id="EnemigosSpawn">
+                            </div>
+                            <div class="col-4 propiedad">
+                                <span>Velocidad base</span>
+                                <input type="text" id="VelocidadBase">
+                            </div>
+                            <div class="col-4 propiedad">
+                                <span>Aumento velocidad</span>
+                                <input type="text" id="AumentoVelocidad">
+                            </div>
+                            <div class="col-12 titulo-propiedad">PowerUps</div>
+
+                            <div class="col-4 propiedad">
+                                <span>Frecuencia spawn</span>
+                                <input type="text" id="FrecuenciaPwups">
+                            </div>
+                            <div class="col-8"></div>
+                            <div class="row powerups">
+                                <div class="col-4">
+                                    <div class="col-12">Velocidad</div>
+                                    <div class="row">
+                                        <div class="col-6 propiedad">
+                                            <span>Tiempo</span>
+                                            <input type="text" id="TiempoVelocidad">
+                                        </div>
+                                        <div class="col-6 propiedad">
+                                            <span>Valor</span>
+                                            <input type="text" id="ValorVelocidad">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="col-12">Disparo</div>
+                                    <div class="row">
+                                        <div class="col-6 propiedad">
+                                            <span>Tiempo</span>
+                                            <input type="text" id="TiempoDisparo">
+                                        </div>
+                                        <div class="col-6 propiedad">
+                                            <span>Valor</span>
+                                            <input type="text" id="ValorDisparo">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="col-12">Vida</div>
+                                    <div class="row">
+                                        <div class="col-6 propiedad">
+                                            <span>Tiempo</span>
+                                            <input type="text" id="tiempoVida">
+                                        </div>
+                                        <div class="col-6 propiedad">
+                                            <span>Valor</span>
+                                            <input type="text" id="ValorVida">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="botones-config-nivel">
+                            <button class="btn btn-primary" id="GuardarNivel">GUARDAR NIVEL</button>
+                            <button class="btn btn-success" id="PublicarNivel">PUBLICAR NIVEL</button>
+                        </div>
+                    </section>
                 </div>
             </div>
         </div>
@@ -74,6 +218,7 @@
     <script src="./src/ImagesLoader.js"></script>
     <script src="./src/code.js"></script>
     <script src="./src/MenuController.js"></script>
+
 </body>
 
 </html>

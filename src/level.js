@@ -10,6 +10,34 @@ class powerUpConfig {
 
 }
 
+function FechaModificada() {
+    let today = new Date();
+    let dd = today.getDate();
+    let mm = today.getMonth() + 1; //January is 0! 
+    let yyyy = today.getFullYear();
+    if (dd < 10) { dd = '0' + dd }
+    if (mm < 10) { mm = '0' + mm }
+    today = dd + '/' + mm + '/' + yyyy;
+    return today;
+
+};
+
+
+class UserConfig {
+
+    constructor(_autor, _nombre) {
+
+        this.autor = _autor;
+        this.fechaDeCreacion = FechaModificada();
+        this.nombreDelNivel = _nombre;
+        this.puntuacion = 5;
+
+    }
+
+}
+
+
+
 class levelConfig {
 
     constructor() {
@@ -33,8 +61,17 @@ class levelConfig {
         this.lifePwUp = Object.assign({}, new powerUpConfig(1, 100, 1));
         this.shootPwUp = Object.assign({}, new powerUpConfig(2, 0.1, 10));
 
+        //Creador
+        this.user = Object.assign({}, new UserConfig("Creador", "Default"));
+
     }
 
 }
 
 var myLevel = new levelConfig();
+
+//saveLevel(myLevel, "Default");
+// db.collection("Levels").doc("Default").set(Object.assign({}, myLevel)).then(function () {
+//     debugger;
+//     console.log("Document successfully written!");
+// });
