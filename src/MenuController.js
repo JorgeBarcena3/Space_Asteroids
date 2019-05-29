@@ -5,6 +5,9 @@ $(document).ready(function () {
     menu_pause.hide();
     $("#Menu-nivel").hide();
     $("#PublishStats").hide();
+    $("#Menu-score").hide();
+    $("#Comunidad-score").hide();
+
 
 
     $("#Jugar").click(function () {
@@ -26,6 +29,12 @@ $(document).ready(function () {
     $("#Volver").click(function () {
         menu.show();
         $(".Comunidad").hide();
+        Comunidad_score
+    });
+    $("#Volver_score").click(function () {
+        menu.show();
+        $("#Comunidad-score").hide();
+
 
     });
 
@@ -35,9 +44,52 @@ $(document).ready(function () {
         $(".Comunidad").hide();
 
     });
+    $("#score_Salir_btn").click(function () {
+
+        $("#Menu-score").hide();
+        $("#Menu-pause").hide();
+        menu.show();
+        $(".Comunidad").hide();
+
+    });
+    $("#Creditos-btn").click(function () {
+        window.open(
+            'https://twitter.com/jorge_barcena3',
+            '_blank'
+        );
+
+    });
+    $("#Comunidad_score").click(function () {
+
+        $("#Comunidad-score").show();
+        $("#Menu").hide(); 
+        $("#tbody_container_score").empty();
+
+        db.collection("score").orderBy("level", "desc").orderBy("score").get().then(function (querySnapshot) {
+
+            querySnapshot.forEach(function (doc) {
+                data = doc.data();
+                let html = '<tr > <th scope="row">' + data.username + '</th> <td>' + data.level + '</td> <td>' + data.score + '</td><td>' + data.fecha + '</td></tr>';
+                $("#tbody_container_score").append(html);
+            });
+        });
+
+
+    });
+
+
 
     $("#Restart_btn").click(function () {
 
+        ocultarComunidad();
+        if (player != null) {
+            restartGame();
+        } else
+            startGame();
+
+    });
+    $("#score_Restart_btn").click(function () {
+        $("#Menu-score").hide();
         ocultarComunidad();
         if (player != null) {
             restartGame();
@@ -80,13 +132,6 @@ $(document).ready(function () {
 
         $("#levelStats").hide();
         $("#PublishStats").show();
-
-        // guardarNivel();
-        // hideAll();
-        // if (player != null) {
-        //     restartGame();
-        // } else
-        //     startGame();
 
     });
     $("#PublicarNivel_step02").click(function () {
@@ -148,6 +193,7 @@ $(document).ready(function () {
         myLevel.shootPwUp.value = parseFloat($("#ValorDisparo").val());
         myLevel.lifePwUp.time = parseFloat($("#tiempoVida").val());
         myLevel.lifePwUp.value = parseFloat($("#ValorVida").val());
+        myLevel.user.nombreDelNivel =  myLevel.user.nombreDelNivel + "_modificado";
 
     }
 
@@ -155,14 +201,14 @@ $(document).ready(function () {
 
         let user = new UserConfig($("#AutorName").val().toUpperCase(), $("#LevelName").val().toUpperCase());
         myLevel.user = Object.assign({}, user);
-     
+
         saveLevel(myLevel, myLevel.user.nombreDelNivel);
-       
-       
+
+
         $("#PublishStats").hide();
         $("#levelStats").show();
         rellenarNivel();
-       
+
 
 
     }
@@ -176,7 +222,7 @@ $(document).ready(function () {
         querySnapshot.forEach(function (doc) {
 
             data = doc.data();
-            let html = '<tr onclick="playLevel(\'' + doc.id + '\')"> <th scope="row">' + data.user.nombreDelNivel + '</th> <td>' + data.user.autor + '</td> <td>' + data.Puntuacion + '/5</td><td>' + data.user.fechaDeCreacion + '</td></tr>';
+            let html = '<tr onclick="playLevel(\'' + doc.id + '\')"> <th scope="row">' + data.user.nombreDelNivel + '</th> <td>' + data.user.autor + '</td> <td>' + data.user.puntuacion + '/5</td><td>' + data.user.fechaDeCreacion + '</td></tr>';
             $("#tbody_container").append(html);
 
         });
@@ -194,7 +240,7 @@ $(document).ready(function () {
 
     }
 
-   
+
 });
 
 
@@ -212,3 +258,5 @@ function playLevel(_name) {
     });
 
 }
+
+

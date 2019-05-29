@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Collisions</title>
+    <title>Space Jorge</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
     <script src="./src/lib/JQuery.js"></script>
@@ -29,13 +29,14 @@
             <div class="menu-principal">
                 <div class="boton boton-principal" id="Jugar">Jugar</div>
                 <div class="boton boton-secundario" id="Comunidad">Comunidad</div>
-                <div class="boton boton-secundario">Opciones</div>
-                <div class="boton boton-terciario">Créditos</div>
+                <div class="boton boton-secundario" id="Comunidad_score">Puntuaciones</div>
+                <div class="boton boton-terciario" id="Creditos-btn">Créditos</div>
             </div>
             <div class="menu-image">
                 <img src="./assets/Heliotropos.png" alt="Imagen_de_fondo">
             </div>
         </div>
+        <!-- COMUNIDAD TAB -->
         <div class="Comunidad">
             <div class="Comunidad-topBar">
                 <div class="Comunidad-TopBar-atras" id="Volver">Menu</div>
@@ -59,6 +60,30 @@
                 </div>
             </div>
         </div>
+        <!-- SCORES TAB -->
+        <div class="Comunidad-score" id="Comunidad-score">
+            <div class="Comunidad-topBar">
+                <div class="Comunidad-TopBar-atras" id="Volver_score">Menu</div>
+                <div class="Comunidad-TopBar-title">Score de la comunidad</div>
+            </div>
+            <div class="Comunidad-levels">
+                <div class="table-contaienr">
+                    <table class="table " id="tabla-puntuaciones">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Nivel</th>
+                                <th scope="col">Puntuación</th>
+                                <th scope="col">F. Creación</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody_container_score">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
         <!-- MENU PAUSA -->
         <div class="Menu-pausa" id="Menu-pause">
             <div class="menu-container">
@@ -74,12 +99,12 @@
             </div>
         </div>
         <!-- MENU SCORE -->
-        <div class="Menu-score" id="Menu-pause">
+        <div class="Menu-score" id="Menu-score">
             <div class="menu-container">
                 <div class="Menu-container-modal">
                     <div class="menu-score-titulo">TU PUNTUACIÓN</div>
                     <div class="menu-score-autor">1225</div>
-                    <input type="text" id="Nombre" placeholder="Introduce tu nombre">
+                    <input type="text" id="Nombre_score" placeholder="Introduce tu nombre" class="input-name">
                     <button class="btn btn-primary menu-score-opciones" id="score_Options_btn">ENVIAR</button>
                     <button class="btn btn-primary menu-score-restart" id="score_Restart_btn">RESTART</button>
                     <button class="btn btn-danger menu-score-salir" id="score_Salir_btn">SALIR</button>

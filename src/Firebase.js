@@ -16,12 +16,24 @@ firebase.initializeApp(firebaseConfig);
 var db = firebase.firestore();
 
 class PlayerFirebase {
-    constructor(_name, _score) {
-        this.userId = Math.floor(Math.random() * 100);
+    constructor(_name, _score, _level) {
         this.name = _name;
         this.score = _score;
+        this.level = _level;
     }
 }
+
+function FechaModificada() {
+    let today = new Date();
+    let dd = today.getDate();
+    let mm = today.getMonth() + 1; //January is 0! 
+    let yyyy = today.getFullYear();
+    if (dd < 10) { dd = '0' + dd }
+    if (mm < 10) { mm = '0' + mm }
+    today = dd + '/' + mm + '/' + yyyy;
+    return today;
+
+};
 
 function saveScore(_player) {
 
@@ -29,7 +41,9 @@ function saveScore(_player) {
     // Add a second document with a generated ID.
     db.collection("score").add({
         username: _player.name,
-        score: _player.score
+        score: _player.score,
+        level: _player.level,
+        fecha: FechaModificada()
     })
         .then(function (docRef) {
             console.log("Document written with ID: ", docRef.id);
@@ -48,6 +62,8 @@ function saveLevel(_level, _name) {
     });
 
 }
+
+
 
 
 

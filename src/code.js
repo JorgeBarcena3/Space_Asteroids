@@ -34,6 +34,9 @@ window.requestAnimationFrame = (function (evt) {
 //Obtenemos el canvas
 canvas = document.getElementById("my_canvas");
 
+function AcabarElJuego(){
+    $("#Menu-score").show();
+}
 function mostrarMenu() {
     $(".menu").show();
 
@@ -135,11 +138,8 @@ function Loop() {
     if (this.player.life <= 0 && jugando != false) {
         jugando = false;
         finDelJuego = true;
-        mostrarMenu();
-        // if (input.isKeyPressed(KEY_P)) {
-        //     saveData();           
-        //     restartGame();
-        // }
+        AcabarElJuego(this.player.score);
+       
     } else
 
         if (input.isKeyPressed(KEY_SCAPE)) {
@@ -177,10 +177,7 @@ function restartGame(gamemode) {
     this.finDelJuego = true;
 }
 
-function saveData() {
-    let pfb = new PlayerFirebase("Ana", this.player.score);
-    saveScore(pfb);
-}
+
 
 function Update(deltaTime) {
 
@@ -327,12 +324,6 @@ function Draw() {
     // clear the canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    for (var i = 0; i < this.player.bullets.length; i++) {
-
-        ctx.fillRect(10 + (10 * i), 60, 10, 10);
-        ctx.strokeRect(10 + (10 * i), 60, 10, 10);
-    }
-
     //Enemies stuff
     this.Enemigos.forEach(m => m.Draw(ctx));
 
@@ -346,10 +337,17 @@ function Draw() {
     // FPS
     ctx.fillStyle = "white";
     ctx.font = "12px Comic Sans MS";
-    ctx.fillText('FPS: ' + FPS, 10, 14);
-    ctx.fillText('Total Enemigos: ' + Enemigos.length, 10, 56);
-    ctx.fillText('Total points: ' + this.player.score, 10, 76);
-    ctx.fillText('Life: ' + this.player.life, 10, 96);
-    ctx.fillText('PowerUp: ' + this.player.powerup == null ? this.player.powerup.type : 'nada', 10, 116);
+   
 }
 
+$("#score_Options_btn").click(function () {
+
+    
+    let pfb = new PlayerFirebase($('#Nombre_score').val(), player.score, myLevel.user.nombreDelNivel);
+    saveScore(pfb);
+    $("#Menu-score").hide();
+    $("#Menu-pause").hide();
+    $("#Menu").show();
+    $(".Comunidad").hide();
+
+});
