@@ -19,6 +19,65 @@
 
 }
 
+/* CSS DE JIMENA */
+
+.pwup{
+    /* PONER ESTE COLOR CUANDO LO PONGAS SOBRE EL FONDO NEGRO (LOGICO) */
+    /* color: white; */
+    color: black;
+}
+
+.pwup img{
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+.pwup_1__active{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.pwup_2__active{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.pwup_3__active{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.lifebar_mg{
+    margin-bottom: 10px;
+}
+/* 
+Aqui puedes cambiar el efeto ese de latido, incluso puedes hacer que cuando quede poco tiempo para que se acabe el boost, haer que parpadee mas rapido o cosas asi (feo) */
+
+.pound{
+	animation-name: pound;
+	-webkit-animation-name: pound;	
+
+	animation-duration: 0.5s;	
+	-webkit-animation-duration: 0.5s;
+
+	animation-timing-function: ease;	
+	-webkit-animation-timing-function: ease;
+
+	animation-iteration-count: infinite;
+	-webkit-animation-iteration-count: infinite;
+
+	visibility: visible !important;	
+}
+@keyframes pound {
+	to { transform: scale(1.2); }
+}
+@-webkit-keyframes pound {
+	to { transform: scale(1.2); }
+}
+
 /* CSS DE Jorge */
 
 body{
