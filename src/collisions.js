@@ -1,5 +1,3 @@
-
-
 function PointInsideCircle (circlePosition, circleRadius2, point)
 {
     // cuadrado de distancia

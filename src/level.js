@@ -1,3 +1,4 @@
+//Configuracion de los power-ups para subirlo a la bbdd
 class powerUpConfig {
 
     constructor(_type, _value, _time) {
@@ -9,10 +10,7 @@ class powerUpConfig {
     }
 
 }
-
-
-
-
+//Datos del usuario para alacenarlo en la bbdd
 class UserConfig {
 
     constructor(_autor, _nombre) {
@@ -25,9 +23,7 @@ class UserConfig {
     }
 
 }
-
-
-
+//Configuracion del nivel para almacenarlo en la bbdd
 class levelConfig {
 
     constructor() {
@@ -57,11 +53,5 @@ class levelConfig {
     }
 
 }
-
+//Nivel cargado por default
 var myLevel = new levelConfig();
-
-//saveLevel(myLevel, "Default");
-// db.collection("Levels").doc("Default").set(Object.assign({}, myLevel)).then(function () {
-//     debugger;
-//     console.log("Document successfully written!");
-// });

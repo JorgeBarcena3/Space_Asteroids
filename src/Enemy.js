@@ -11,8 +11,8 @@ class Enemy {
     constructor(initialPosition, initialRotation, _velocity, _rotVelocity, _player, _damage) {
 
         //Get a random image
-        let randomImg = Math.floor(Math.random() * (4));
-        switch (randomImg) {
+        let randomEnemy = Math.floor(Math.random() * (4));
+        switch (randomEnemy) {
             case 0:
                 this.type = 1;
                 this.damage = _damage * 0.5;
@@ -54,7 +54,7 @@ class Enemy {
 
     Start = function () {
         this.rotation = this.initialRotation;
-        this.radius = 20;//Math.sqrt((this.imgHalfWidth * this.imgHalfWidth) / 2 + (this.imgHalfHeight * this.imgHalfHeight) / 2);
+        this.radius =   ;
         this.radius2 = this.radius * this.radius;
         EnemyActive.push(this);
 
@@ -83,7 +83,7 @@ class Enemy {
             if (
                 CheckCircleCollision(
                     this.position.x, this.position.y, this.radius,
-                    this.player.position.x, this.player.position.y, this.player.img.width / 3
+                    this.player.position.x, this.player.position.y, this.player.animador.frameWidth / 2
                 )
             ) {
                 this.removeEnemy();
@@ -106,9 +106,6 @@ class Enemy {
             ctx.drawImage(this.img, -this.imgHalfWidth, -this.imgHalfHeight);
             ctx.restore();
 
-            // ctx.beginPath();
-            // ctx.fillStyle = 'rgba(0, 255, 0, 0.2)';
-            // ctx.arc(0, 0, this.radius, 0, 2 * Math.PI);
             ctx.fill();
 
             ctx.restore();

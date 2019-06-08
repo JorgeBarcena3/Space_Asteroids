@@ -6,11 +6,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Space Jorge</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="./assets/ship.png" sizes="64x64">
     <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
     <script src="./src/lib/JQuery.js"></script>
 
+    <!-- BOOSTRAP -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- W3SCHOOL -->
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
 </head>
@@ -22,34 +25,15 @@
     <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase-firestore.js"></script>
     <script src="./src/Firebase.js"></script>
-    <script src="./src/CanvasGamepad.js"></script>
 
     <div id="container">
+        <audio src="./assets/background_music.mp3" id="backgroundAudio" style="display: none"></audio>
+
         <canvas id="my_canvas" width="1280" height="720"></canvas>
-        <div class="pwup pwup_1__active">
-            <img src="assets/pwup_1.png" alt="Power Up 1">
-            <p class="pound">Power Up 1 activated!</p>
-        </div>
-        <div class="pwup pwup_2__active">
-            <img src="assets/pwup_2.png" alt="Power Up 2">
-            <p class="pound">Power Up 2 activated!</p>
-        </div>
-        <div class="pwup pwup_3__active">
-            <img src="assets/pwup_3.png" alt="Power Up 3">
-            <p class="pound">Power Up 3 activated!</p>
-        </div>
-        <div class="score_mg">
-            <p>Score: <span>1543</span></p>
-        </div>
-        <div class="lifes_mg">
-            <p>Lifes: <span>5</span></p>
-        </div>
-        <div class="lifebar_mg">
-            <div class="w3-border">
-                <div class="w3-green w3-round" style="height:24px;width:20%"></div>
-            </div>
-        </div>
+
+        <!-- MENU PRINCIPAL -->
         <div class="menu" id="Menu">
+            <img src="assets/TITLE.png" class="titulo-juego">
             <div class="menu-principal">
                 <div class="boton boton-principal" id="Jugar">Jugar</div>
                 <div class="boton boton-secundario" id="Comunidad">Comunidad</div>
@@ -61,7 +45,7 @@
             </div>
         </div>
         <!-- COMUNIDAD TAB -->
-        <div class="Comunidad">
+        <div class="Comunidad" id="Comunidad-levels">
             <div class="Comunidad-topBar">
                 <div class="Comunidad-TopBar-atras" id="Volver">Menu</div>
                 <div class="Comunidad-TopBar-title">Niveles de la comunidad</div>
@@ -108,12 +92,41 @@
                 </div>
             </div>
         </div>
+        <!-- HUD -->
+        <div class="hud" id="hud">
+            <div class="hud-life">
+                <div class="lifebar_mg">
+                    <div class="w3-border w3-round">
+                        <div class="w3-green w3-round" id="barra_vida" style="height:24px;width:100%"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="hud-score">
+                <div class="score_mg">
+                    <p>Score: <span id="score_points">1543</span></p>
+                </div>
+            </div>
+            <div class="hud-powups pound">
+                <div class="pwup pwup_1__active">
+                    <img src="assets/pwup_1.png" alt="Power Up 1">
+                    <p class="">Velocidad Activado!</p>
+                </div>
+                <div class="pwup pwup_2__active">
+                    <img src="assets/pwup_2.png" alt="Power Up 2">
+                    <p class="">vida Activado!</p>
+                </div>
+                <div class="pwup pwup_3__active">
+                    <img src="assets/pwup_3.png" alt="Power Up 3">
+                    <p class="">Daño activado!</p>
+                </div>
+            </div>
+        </div>
         <!-- MENU PAUSA -->
         <div class="Menu-pausa" id="Menu-pause">
             <div class="menu-container">
                 <div class="Menu-container-modal">
-                    <div class="menu-pausa-titulo">NIVEL DIFICIL</div>
-                    <div class="menu-pausa-autor">JORGE BARCENA</div>
+                    <div class="menu-pausa-titulo" id="titulo_nivel">NIVEL DIFICIL</div>
+                    <div class="menu-pausa-autor" id="Autor_nivel">JORGE BARCENA</div>
                     <button class="btn btn-success menu-pausa-continue" id="continue_btn">CONTINUAR</button>
                     <button class="btn btn-primary menu-pausa-nivel" id="level_btn">MODIFICAR NIVEL</button>
                     <button class="btn btn-primary menu-pausa-opciones" id="Options_btn" disabled>OPCIONES</button>
@@ -127,7 +140,7 @@
             <div class="menu-container">
                 <div class="Menu-container-modal">
                     <div class="menu-score-titulo">TU PUNTUACIÓN</div>
-                    <div class="menu-score-autor">1225</div>
+                    <div class="menu-score-autor" id="menu_score_puntuacion">1225</div>
                     <input type="text" id="Nombre_score" placeholder="Introduce tu nombre" class="input-name">
                     <button class="btn btn-primary menu-score-opciones" id="score_Options_btn">ENVIAR</button>
                     <button class="btn btn-primary menu-score-restart" id="score_Restart_btn">RESTART</button>
@@ -258,6 +271,7 @@
     <script src="./src/input.js"></script>
     <script src="./src/Math.js"></script>
     <script src="src/sounds.js"></script>
+    <script src="src/Animations.js"></script>
     <script src="./src/collisions.js"></script>
     <script src="./src/powerUp.js"></script>
     <script src="src/level.js"></script>

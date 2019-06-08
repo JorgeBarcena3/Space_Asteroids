@@ -1,9 +1,12 @@
 var player = null;
 
+//Jugador
 class Player {
 
-    constructor(_img, initialPosition, initialRotation, _velocity, _life, _frecuenciaDeDisparo) {
-        this.img = _img;
+    constructor(_img, _img2, initialPosition, initialRotation, _velocity, _life, _frecuenciaDeDisparo) {
+        this.animador = new animation(_img);
+        this.animadorBoost = new animation(_img2, 8);
+        this.currentAnimation = this.animador;
         this.position = new vec2(initialPosition.x, initialPosition.y);
         this.rotation = 0;
         this.initialRotation = initialRotation;
@@ -13,7 +16,7 @@ class Player {
         this.radius = 0;
         this.radius2 = 0;
         this.bullets = new Array();
-        this.life = _life;
+        this.life = this.maxLife = _life;
         this.score = 0;
         this.frecuenciaDeDisparo = _frecuenciaDeDisparo;
         this.timer = this.frecuenciaDeDisparo;
@@ -91,7 +94,6 @@ class Player {
 
             shoot.currentTime = 0;
             shoot.play();
-          //  shoot.play();
 
         }
         this.bullets.forEach(m => { if (m.active) m.Update(deltaTime); });
@@ -114,6 +116,8 @@ class Player {
             this.position.y = 1;
         }
 
+        //Animador
+        this.currentAnimation.Update(deltaTime);
 
 
     }
@@ -124,52 +128,55 @@ class Player {
 
         ctx.translate(this.position.x, this.position.y);
         ctx.rotate(this.rotation);
-        //ctx.scale(2, 2);
 
-        // ctx.fillStyle = 'rgba(255, 0, 0, 0.3)';
-        // ctx.strokeStyle = 'red';
-        // // ctx.fillRect(-this.imgHalfWidth, -this.imgHalfHeight, this.img.width, this.img.height);
-        // ctx.strokeRect(-this.imgHalfWidth / 2, -this.imgHalfHeight / 2, this.img.width / 2, this.img.height / 2);
+        this.pintarVidaYPowerups();
 
-        ctx.save();
-        ctx.scale(0.5, 0.5);
-        ctx.drawImage(this.img, -this.imgHalfWidth, -this.imgHalfHeight);
-        ctx.restore();
+        this.currentAnimation.Draw(ctx);
 
-        // ctx.beginPath();
-        // ctx.fillStyle = 'rgba(0, 255, 0, 0.2)';
-        // ctx.arc(0, 0, this.radius, 0, 2 * Math.PI);
         ctx.fill();
 
         ctx.restore();
     }
 
+    pintarVidaYPowerups() {
+
+        var porcentajeVida = (this.life * 100) / this.maxLife;
+        var stringVida = porcentajeVida.toString() + "%";
+        $("#barra_vida").css("width", stringVida);
+        var x = $("#score_points");
+        x.html(this.score);
+    }
+
+    //Aplicamos un pw
     applyPowerUp(deltaTime) {
 
         if (!this.powerupApplied) {
 
             switch (this.powerup.type) {
                 case 1: //Vida
-                    this.life += this.powerup.amount;
+                    this.life = this.powerup.amount + this.life > this.maxLife ? this.maxLife : this.life + this.powerup.amount;
                     LifePwup.currentTime = 0;
                     LifePwup.play();
                     break;
                 case 2: //Disparo mas rapido
                     this.frecuenciaDeDisparo = this.powerup.amount;
                     ShootPwup.currentTime = 0;
-                    ShootPwup.play();
+                    $(".pwup_3__active").fadeIn();
                     break;
                 default: //Mas velocidad
                     this.velocity += this.powerup.amount;
                     SpeedPwup.currentTime = 0;
                     SpeedPwup.play();
+                    $(".pwup_1__active").fadeIn();
                     break;
             }
 
+            this.currentAnimation = this.animadorBoost;
             this.powerupApplied = true;
 
         } else if (this.timerPowerUp < this.powerup.time) {
-            this.timerPowerUp += deltaTime;
+            this.timerPowerUp += deltaTime;         
+
         } else {
 
             switch (this.powerup.type) {
@@ -186,6 +193,8 @@ class Player {
             this.timerPowerUp = 0;
             this.powerup = null;
             this.powerupApplied = false;
+            this.currentAnimation = this.animador;
+            $(".pwup").fadeOut();
         }
     }
 }

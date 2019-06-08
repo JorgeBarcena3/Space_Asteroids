@@ -15,6 +15,7 @@ firebase.initializeApp(firebaseConfig);
 // Get a reference to the database service
 var db = firebase.firestore();
 
+//Clase que guarda el jugador para alacenarlo en firebase
 class PlayerFirebase {
     constructor(_name, _score, _level) {
         this.name = _name;
@@ -23,10 +24,11 @@ class PlayerFirebase {
     }
 }
 
+//Se le da formato a la fecha
 function FechaModificada() {
     let today = new Date();
     let dd = today.getDate();
-    let mm = today.getMonth() + 1; //January is 0! 
+    let mm = today.getMonth() + 1; 
     let yyyy = today.getFullYear();
     if (dd < 10) { dd = '0' + dd }
     if (mm < 10) { mm = '0' + mm }
@@ -35,8 +37,8 @@ function FechaModificada() {
 
 };
 
+//Guardamos el score en la bd
 function saveScore(_player) {
-
 
     // Add a second document with a generated ID.
     db.collection("score").add({
@@ -55,6 +57,7 @@ function saveScore(_player) {
 
 }
 
+//Guardamos el nivel
 function saveLevel(_level, _name) {
 
     db.collection("Levels").add(Object.assign({}, _level)).then(function () {
@@ -63,6 +66,13 @@ function saveLevel(_level, _name) {
 
 }
 
+//Nos autenticamos de modo anonimo
+firebase.auth().signInAnonymously().catch(function (error) {
+
+    var errorCode = error.code;
+    var errorMessage = error.message;
+
+});
 
 
 

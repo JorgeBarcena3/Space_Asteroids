@@ -10,7 +10,7 @@ class Bullet {
         this.velocity = _velocity;
         this.direction = _direction;
         this.active = true;
-        this.radius = 5;
+        this.radius = _img.width / 2;
         bulletsActive.push(this);
     }
 
@@ -19,10 +19,10 @@ class Bullet {
 
     Update = function (deltaTime) {
 
-        this.position.x += this.velocity * deltaTime * this.direction.x;// * Math.cos(this.rotation);
-        this.position.y += this.velocity * deltaTime * this.direction.y;// * Math.sin(this.rotation);
+        this.position.x += this.velocity * deltaTime * this.direction.x;
+        this.position.y += this.velocity * deltaTime * this.direction.y;
 
-        // Check world limits
+        // Limites del mundo
         if (this.position.x >= canvas.width || this.position.x <= 0.0 || this.position.y <= 0.0 || this.position.y >= canvas.height) {
             this.active = false;
             bulletsInactive.push(this);
@@ -33,8 +33,8 @@ class Bullet {
 
     }
 
-    removeBullet = function(){
-        
+    removeBullet = function () {
+
         this.active = false;
         var indexActive = bulletsActive.indexOf(this);
         bulletsActive.splice(indexActive, 1);
@@ -48,11 +48,6 @@ class Bullet {
         ctx.translate(this.position.x, this.position.y);
         ctx.rotate(this.rotation + PI2);
         ctx.drawImage(this.img, -this.img.width, -this.img.height);
-
-        // ctx.beginPath();
-        // ctx.fillStyle = 'rgba(255, 255, 0, 0.2)';
-        // ctx.arc(0, -15, this.radius, 0, 2 * Math.PI);
-        // ctx.fill();
 
         ctx.restore();
 

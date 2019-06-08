@@ -1,3 +1,4 @@
+//Classe vector2 para realizar algunas operaciones
 class vec2 {
 
     constructor(_x, _y) {
@@ -31,13 +32,16 @@ class vec2 {
 
 }
 
+//Devuelve la inversa del logaritmo de x
 function logInv(x) {
     return 1 / Math.log(x + 1);
 }
+//Devuelve el logaritmo de x
 function log(x) {
     return Math.log(x + 1);
 }
 
+//Obtiene un punto fuera de un rectangulo para el respawn
 function pointOutsideRect(x1, x2, y1, y2, _error) {
 
     let x = (Math.floor(Math.random() * (2 - 0)) + 0) == 0 ?

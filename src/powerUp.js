@@ -3,6 +3,7 @@ powerUpInactive = new Array();
 powerUps = new Array();
 powerUpTimeSpawner = 0;
 
+//PowerUps
 class PowerUp {
 
     constructor(_type, _time, _position, _player, _value) {
@@ -69,11 +70,6 @@ class PowerUp {
             ctx.scale(1,1);
             ctx.drawImage(this.img, -this.img.width / 2, -this.img.height / 2);
             ctx.restore();
-
-            // ctx.beginPath();
-            // ctx.fillStyle = 'rgba(0, 255, 255, 0.2)';
-            // ctx.arc(0, 0, 15, 0, 2 * Math.PI);
-            // ctx.fill();
 
             ctx.restore();
         }

@@ -19,69 +19,9 @@
 
 }
 
-/* CSS DE JIMENA */
-
-.pwup{
-    /* PONER ESTE COLOR CUANDO LO PONGAS SOBRE EL FONDO NEGRO (LOGICO) */
-    /* color: white; */
-    color: black;
-}
-
-.pwup img{
-    margin-bottom: 5px;
-    margin-top: 5px;
-}
-
-.pwup_1__active{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.pwup_2__active{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.pwup_3__active{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.lifebar_mg{
-    margin-bottom: 10px;
-}
-/* 
-Aqui puedes cambiar el efeto ese de latido, incluso puedes hacer que cuando quede poco tiempo para que se acabe el boost, haer que parpadee mas rapido o cosas asi (feo) */
-
-.pound{
-	animation-name: pound;
-	-webkit-animation-name: pound;	
-
-	animation-duration: 0.5s;	
-	-webkit-animation-duration: 0.5s;
-
-	animation-timing-function: ease;	
-	-webkit-animation-timing-function: ease;
-
-	animation-iteration-count: infinite;
-	-webkit-animation-iteration-count: infinite;
-
-	visibility: visible !important;	
-}
-@keyframes pound {
-	to { transform: scale(1.2); }
-}
-@-webkit-keyframes pound {
-	to { transform: scale(1.2); }
-}
-
-/* CSS DE Jorge */
-
 body{
     font-family: 'Rubik Mono One', sans-serif !important;
+    background: #626872 !important;
 }
 
 .menu, .Comunidad, .Comunidad-score{
@@ -91,6 +31,27 @@ body{
     background: url("./assets/fondo.png");
     top: 0;
 
+}
+
+.titulo-juego{
+    width: 500px;
+    position: absolute;
+    right: 173px;
+    top: 20px;
+
+    animation-name: pound;
+	-webkit-animation-name: pound;	
+
+	animation-duration: 1.5s;	
+	-webkit-animation-duration: 1.8s;
+
+	animation-timing-function: ease;	
+	-webkit-animation-timing-function: ease;
+
+	animation-iteration-count: infinite;
+	-webkit-animation-iteration-count: infinite;
+
+	visibility: visible !important;	
 }
 
 .Menu-pausa{
@@ -260,7 +221,7 @@ tbody > tr:hover{
 .menu-pausa-titulo{
     position: relative;
     top: 50px;
-    font-size: 35px;
+    font-size: 145%;
 }
 .menu-pausa-autor{
     position: relative;
@@ -370,3 +331,98 @@ input{
     .input-name{    top: 131px;
         position: relative;
         font-size: 19px;}
+
+        
+/* CSS DE HUD */
+
+.hud{
+    position: absolute;
+    width: 100%;
+    top: 0;
+}
+
+.hud-life{
+    left: 25%;
+    width: 50%;
+    position: relative;
+    top: 15px;
+}
+
+.hud-powups{
+    position: relative;
+    left: 60px;
+    top:-0px;
+    width: 112px;
+}
+
+.pwup{
+    text-align: center;
+transition: 0.5;
+    color: white;
+}
+
+.pwup img{
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+.hud-score{
+    color: white;
+    position: absolute;
+    right: 50px;
+    font-size: 20px;
+}
+
+.score_mg{}
+
+.pwup_1__active{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.pwup_2__active{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.pwup_3__active{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.lifebar_mg{
+    margin-bottom: 10px;
+}
+
+.pound{
+	animation-name: pound;
+	-webkit-animation-name: pound;	
+
+	animation-duration: 0.5s;	
+	-webkit-animation-duration: 0.8s;
+
+	animation-timing-function: ease;	
+	-webkit-animation-timing-function: ease;
+
+	animation-iteration-count: infinite;
+	-webkit-animation-iteration-count: infinite;
+
+	visibility: visible !important;	
+}
+@keyframes pound {
+    0%{scale: (1)}
+    50% { transform: scale(1.2); }
+    100%{scale: (1)}
+}
+@-webkit-keyframes pound {
+    0%{scale: (1)}
+    50% { transform: scale(1.2); }
+    100%{scale: (1)}
+}
+
+#barra_vida{
+    transition: 0.5s;
+}

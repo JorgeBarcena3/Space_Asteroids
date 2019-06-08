@@ -1,6 +1,6 @@
 function cargarImagenes() {
 
-    //Imagen de los enemigos
+    //Imagen de los enemigos y powerUps
     EnemyIMG_0 = new Image();
     EnemyIMG_0.src = "./assets/Enemy_1_Neon.png";
     EnemyIMG_0.onload = function () {
@@ -25,13 +25,17 @@ function cargarImagenes() {
                                 bulletIMG = new Image();
                                 bulletIMG.src = "./assets/Player_Bullet.png";
                                 bulletIMG.onload = function () {
-                                    loadLevel("Default");
+                                    boostPlayer = new Image();
+                                    boostPlayer.src = "./assets/Boost.png";
+                                    boostPlayer.onload = function () {
+                                        loadLevel("Default");
 
+                                    }
                                 }
                             }
                         }
-                    }
 
+                    }
                 }
             }
         }

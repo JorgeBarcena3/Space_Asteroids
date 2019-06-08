@@ -35,6 +35,7 @@ window.requestAnimationFrame = (function (evt) {
 canvas = document.getElementById("my_canvas");
 
 function AcabarElJuego(){
+    $("#menu_score_puntuacion").html(this.player.score);
     $("#Menu-score").show();
 }
 function mostrarMenu() {
@@ -84,6 +85,7 @@ function Start() {
     //Inicializamos el player
     this.player = new Player(
         PlayerIMG,
+        boostPlayer,
         { x: canvas.width / 2, y: canvas.height / 2 },
         0,  // initialRotation
         this.myLevel.velocidadPlayer, // velocity
@@ -144,6 +146,8 @@ function Loop() {
 
         if (input.isKeyPressed(KEY_SCAPE)) {
             jugando = false;
+            $("#titulo_nivel").html(this.myLevel.user.nombreDelNivel);
+            $("#Autor_nivel").html(this.myLevel.user.autor);
             $("#Menu-pause").show();
 
         } else
@@ -342,11 +346,13 @@ function Draw() {
 
 $("#score_Options_btn").click(function () {
 
-    
+   $("#menu-score-autor").val(myLevel.user.nombreDelNivel);
     let pfb = new PlayerFirebase($('#Nombre_score').val(), player.score, myLevel.user.nombreDelNivel);
     saveScore(pfb);
     $("#Menu-score").hide();
     $("#Menu-pause").hide();
+    $("#hud").hide();
+
     $("#Menu").show();
     $(".Comunidad").hide();
 
