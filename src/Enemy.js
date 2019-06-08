@@ -54,7 +54,7 @@ class Enemy {
 
     Start = function () {
         this.rotation = this.initialRotation;
-        this.radius =   ;
+        this.radius = 30;
         this.radius2 = this.radius * this.radius;
         EnemyActive.push(this);
 
